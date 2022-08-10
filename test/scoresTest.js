@@ -111,19 +111,10 @@ class LoggingTreeListener extends HeapListener {
 
 }
     
-    
-    
 const scoresFactory = ProjectorFactory.objectProjector(new FootballScores());
 
-function simpleTest() {
-    
-    
-}
-
-
-
-describe("A suite", function() {
-    it("simple test works", function() {
+describe("Integration tests", function() {
+    it("should apply all updates to a heap to another heap acting as listener to it and the result to be identical", function() {
       expect(true).toBe(true);
 
 
