@@ -3,8 +3,6 @@ import { ProjectorFactory } from '../src/projectors.js'
 import { UpdateType } from '../src/updates.js'
 import { HeapListener, MutableHeap } from '../src/heap.js'
 
-
-
 class GoalDetail {
 
     constructor(/*ObjectNode*/ node) {
@@ -118,50 +116,50 @@ class LoggingTreeListener extends HeapListener {
 const scoresFactory = ProjectorFactory.objectProjector(new FootballScores());
 
 function simpleTest() {
-    const src = new MutableHeap("src");
-
-    const target = new MutableHeap("target");
-
-    src.addListener(target.asListener(), false);
-
-    src.beginUpdate();
-
-    const scores = scoresFactory.project(src.ensureRoot(NodeType.OBJECT));
-    src.endUpdate();
-    
-    if (src.toString() != target.toString()) {
-        console.log("Not the same:\nsrc\n"+src+"\ntarget\n"+target);
-    }
-    
-    src.beginUpdate();
-    scores.setAway(0);
-    scores.setHome(1);
-    const firstGoal = scores.goals().addLast();
-    firstGoal.setScorer("Rooney");
-    firstGoal.setMinutes(34);
-    src.endUpdate();
-    
-    if (src.toString() != target.toString()) {
-        console.log("Not the same:\nsrc\n"+src+"\ntarget\n"+target);
-    }
-    
-    src.beginUpdate();
-    scores.goals().clear();
-    src.endUpdate();
-    
-    if (src.toString() != target.toString()) {
-        console.log("Not the same:\nsrc\n"+src+"\ntarget\n"+target);
-    }
-    
-    src.beginUpdate();
-    scores.clear();
-    src.endUpdate();
-    
-    if (src.toString() != target.toString()) {
-        console.log("Not the same:\nsrc\n"+src+"\ntarget\n"+target);
-    }
     
     
 }
 
-simpleTest();
+
+
+describe("A suite", function() {
+    it("simple test works", function() {
+      expect(true).toBe(true);
+
+
+        const src = new MutableHeap("src");
+
+        const target = new MutableHeap("target");
+
+        src.addListener(target.asListener(), false);
+
+        src.beginUpdate();
+
+        const scores = scoresFactory.project(src.ensureRoot(NodeType.OBJECT));
+        src.endUpdate();
+        
+        expect(target.toString()).toBe(src.toString());
+        
+        src.beginUpdate();
+        scores.setAway(0);
+        scores.setHome(1);
+        const firstGoal = scores.goals().addLast();
+        firstGoal.setScorer("Rooney");
+        firstGoal.setMinutes(34);
+        src.endUpdate();
+        
+        expect(target.toString()).toBe(src.toString());
+        
+        src.beginUpdate();
+        scores.goals().clear();
+        src.endUpdate();
+        
+        expect(target.toString()).toBe(src.toString());
+        
+        src.beginUpdate();
+        scores.clear();
+        src.endUpdate();
+        
+        expect(target.toString()).toBe(src.toString());
+    });
+  });

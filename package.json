@@ -1,3 +1,7 @@
 {
-    "type": "module"
+    "type": "module",
+    "devDependencies": {
+        "jasmine": "^4.3.0"
+    },
+    "scripts": { "test": "jasmine" }
 }
